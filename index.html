@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SellerFlow — Votre activité, mieux organisée</title>
+<style>
+:root{--navy:#10263d;--navy2:#183b55;--green:#12845d;--mint:#e3f6ed;--bg:#f4f7fa;--text:#182637;--muted:#718093;--line:#e4eaf0;--white:#fff;--shadow:0 8px 28px rgba(16,38,61,.06)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font:15px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--text)}
+button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:10px;padding:10px 15px;background:var(--green);color:white;font-weight:700;transition:.18s ease}
+button:hover{filter:brightness(.96);transform:translateY(-1px)}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #9bdcc0;outline-offset:2px}
+button.secondary{background:white;color:var(--navy);border:1px solid var(--line)}button.danger{background:#fff3f2;color:#a33434;border:1px solid #f1d7d4}
+header{background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5;backdrop-filter:blur(12px)}
+.top{max-width:1200px;margin:auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:850;font-size:23px;color:var(--navy);letter-spacing:-.8px}
+.logo{width:38px;height:38px;border-radius:11px;background:var(--mint);display:grid;place-items:center;color:var(--green);font-size:22px}
+nav{display:flex;gap:5px;flex-wrap:wrap}nav button{background:transparent;color:var(--muted);padding:9px 13px;font-size:13px}nav button.active,nav button:hover{background:var(--mint);color:#08764c;transform:none}
+main{max-width:1200px;margin:30px auto;padding:0 24px}
+.hero{background:linear-gradient(120deg,var(--navy),var(--navy2));color:white;border-radius:22px;padding:38px;display:grid;grid-template-columns:1.35fr .8fr;gap:24px;align-items:center;box-shadow:var(--shadow)}
+.hero h1{font-size:clamp(32px,4vw,48px);line-height:1.08;margin:12px 0 14px;letter-spacing:-1.7px}.hero p{color:#d7e4ee;max-width:590px;margin-bottom:22px}
+.hero .tag{display:inline-block;background:#dff7ec;color:#08764c;border-radius:30px;padding:6px 12px;font-size:11px;font-weight:800;letter-spacing:.5px}
+.hero-art{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:18px;padding:20px}
+.mini-chart{height:132px;display:flex;align-items:end;gap:10px;padding:14px 4px 4px}.mini-chart i{display:block;flex:1;background:linear-gradient(180deg,#55d6a2,#159765);border-radius:7px 7px 2px 2px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin:20px 0}
+.card{background:white;border:1px solid var(--line);border-radius:16px;padding:19px;box-shadow:var(--shadow)}
+.metric{font-size:27px;font-weight:820;margin-top:7px;color:var(--navy);letter-spacing:-.7px}.muted{color:var(--muted)}.small{font-size:12px;color:var(--muted)}
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:30px 0 13px}.section-head h2{margin:0;font-size:22px;letter-spacing:-.5px}
+.tools{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.tool-icon{width:44px;height:44px;border-radius:13px;background:var(--mint);display:grid;place-items:center;color:#08764c;font-size:22px}
+.tools .card h3{margin:13px 0 5px}.tools .card p{min-height:48px;font-size:13px}
+.panel{display:none}.panel.active{display:block}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+label{display:block;font-size:13px;font-weight:700;color:#34465a;margin-bottom:6px}
+input,select,textarea{width:100%;padding:11px 12px;border:1px solid #d8e0e7;border-radius:10px;background:white;color:var(--text)}
+input:focus,select:focus,textarea:focus{border-color:#58b88c;outline:none;box-shadow:0 0 0 3px #dff5e9}
+textarea{min-height:112px;resize:vertical}.field{margin-bottom:13px}
+table{width:100%;border-collapse:collapse;background:white;border-radius:12px;overflow:hidden}th,td{text-align:left;padding:12px;border-bottom:1px solid var(--line);font-size:13px}th{background:#f4f7f9;color:#42556a;font-size:11px;text-transform:uppercase;letter-spacing:.45px}td.num{text-align:right;font-variant-numeric:tabular-nums}
+.empty{text-align:center;color:var(--muted);padding:28px}
+.notice{background:#fff8e8;border:1px solid #f0dfb6;color:#70551c;padding:13px 15px;border-radius:12px;font-size:13px;margin-top:17px}
+footer{max-width:1200px;margin:42px auto 0;padding:23px 24px;color:var(--muted);font-size:12px;border-top:1px solid var(--line)}
+.pill{font-size:11px;background:#e9f7ef;color:#08764c;border-radius:20px;padding:5px 9px;font-weight:750}
+.panel>.card{margin-bottom:15px}.panel>.card>button{margin-top:2px}
+@media(max-width:900px){.grid,.tools{grid-template-columns:repeat(2,1fr)}.hero{grid-template-columns:1fr}.hero-art{display:none}}
+@media(max-width:600px){.top{align-items:flex-start;flex-direction:column;padding:12px 16px}nav{width:100%;overflow-x:auto;flex-wrap:nowrap}nav button{white-space:nowrap;font-size:12px;padding:8px 10px}main{padding:0 14px;margin:18px auto}.grid,.tools,.form-grid{grid-template-columns:1fr}.hero{padding:25px 21px}.section-head{align-items:flex-start;flex-direction:column}table{min-width:720px}.panel .card:has(table){overflow-x:auto}}
+</style>
+</head>
+<body>
+<header><div class="top">
+  <div class="brand"><span class="logo">▥</span> SellerFlow</div>
+  <nav aria-label="Navigation principale">
+    <button class="active" data-tab="home">Accueil</button>
+    <button data-tab="sales">Ventes</button>
+    <button data-tab="stock">Stock</button>
+    <button data-tab="calculator">Calculateur</button>
+    <button data-tab="assistant">Assistant</button>
+  </nav>
+</div></header>
+<main>
+<section id="home" class="panel active">
+  <div class="hero">
+    <div><span class="tag">BOÎTE À OUTILS POUR ENTREPRENEURS</span>
+      <h1>Votre activité,<br>mieux organisée.</h1>
+      <p>Suivez vos ventes, gardez un œil sur vos produits et estimez vos marges avec des outils simples, réunis au même endroit.</p>
+      <button onclick="showTab('sales')">Ajouter une vente →</button>
+      <button class="secondary" onclick="showTab('calculator')">Calculer une marge</button>
+    </div>
+    <div class="hero-art"><div class="small" style="color:#d7e4ee">APERÇU DE VOTRE ACTIVITÉ</div>
+      <div style="display:flex;justify-content:space-between;margin-top:12px"><span>Chiffre d'affaires</span><b id="heroRevenue">0,00 €</b></div>
+      <div class="mini-chart"><i style="height:25%"></i><i style="height:40%"></i><i style="height:32%"></i><i style="height:58%"></i><i style="height:50%"></i><i style="height:78%"></i><i style="height:95%"></i></div>
+      <div class="small" style="color:#d7e4ee">Graphique décoratif — vos données restent dans ce navigateur.</div>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="card"><div class="muted">Chiffre d'affaires</div><div class="metric" id="revenue">0,00 €</div><div class="small">Ventes enregistrées</div></div>
+    <div class="card"><div class="muted">Coût des articles</div><div class="metric" id="costs">0,00 €</div><div class="small">Prix d'achat</div></div>
+    <div class="card"><div class="muted">Frais de vente</div><div class="metric" id="fees">0,00 €</div><div class="small">Frais saisis</div></div>
+    <div class="card"><div class="muted">Marge estimée</div><div class="metric" id="profit">0,00 €</div><div class="small">Avant autres charges et obligations</div></div>
+  </div>
+  <div class="section-head"><h2>Vos outils</h2><span class="pill">Prototype gratuit</span></div>
+  <div class="tools">
+    <div class="card"><div class="tool-icon">▤</div><h3>Suivi des ventes</h3><p class="muted">Enregistrez vos ventes et consultez votre chiffre d'affaires.</p><button class="secondary" onclick="showTab('sales')">Ouvrir</button></div>
+    <div class="card"><div class="tool-icon">▦</div><h3>Gestion du stock</h3><p class="muted">Gardez une liste des articles et de leur statut.</p><button class="secondary" onclick="showTab('stock')">Ouvrir</button></div>
+    <div class="card"><div class="tool-icon">％</div><h3>Calculateur de marge</h3><p class="muted">Estimez ce qu'il reste après les coûts directs.</p><button class="secondary" onclick="showTab('calculator')">Ouvrir</button></div>
+    <div class="card"><div class="tool-icon">✦</div><h3>Assistant d'annonce</h3><p class="muted">Préparez une première description de produit.</p><button class="secondary" onclick="showTab('assistant')">Ouvrir</button></div>
+  </div>
+  <div class="notice">Version de démonstration : aucune commande ni aucun paiement n'est proposé. N'ajoutez pas de données personnelles ou sensibles.</div>
+</section>
+
+<section id="sales" class="panel">
+  <div class="section-head"><h2>Suivi des ventes</h2><span class="pill">Données locales</span></div>
+  <div class="card">
+    <div class="form-grid">
+      <div class="field"><label for="saleName">Article</label><input id="saleName" placeholder="Ex. Sac à dos"></div>
+      <div class="field"><label for="saleDate">Date</label><input id="saleDate" type="date"></div>
+      <div class="field"><label for="saleBuy">Prix d'achat (€)</label><input id="saleBuy" type="number" min="0" step=".01" placeholder="0,00"></div>
+      <div class="field"><label for="saleSell">Prix de vente (€)</label><input id="saleSell" type="number" min="0" step=".01" placeholder="0,00"></div>
+      <div class="field"><label for="saleFees">Frais (€)</label><input id="saleFees" type="number" min="0" step=".01" value="0"></div>
+      <div class="field"><label for="saleStatus">Statut</label><select id="saleStatus"><option>Vendu</option><option>En attente</option><option>Annulé</option></select></div>
+    </div>
+    <button onclick="addSale()">Ajouter la vente</button>
+  </div>
+  <div class="section-head"><h2>Historique</h2><button class="secondary" onclick="exportSales()">Exporter CSV</button></div>
+  <div class="card" style="overflow-x:auto"><table><thead><tr><th>Article</th><th>Date</th><th>Statut</th><th>Achat</th><th>Vente</th><th>Frais</th><th>Marge estimée</th><th></th></tr></thead><tbody id="salesRows"></tbody></table></div>
+</section>
+
+<section id="stock" class="panel">
+  <div class="section-head"><h2>Gestion du stock</h2></div>
+  <div class="card">
+    <div class="form-grid">
+      <div class="field"><label for="stockName">Nom du produit</label><input id="stockName" placeholder="Ex. Livre de cuisine"></div>
+      <div class="field"><label for="stockCategory">Catégorie</label><input id="stockCategory" placeholder="Ex. Livres"></div>
+      <div class="field"><label for="stockQty">Quantité</label><input id="stockQty" type="number" min="1" value="1"></div>
+      <div class="field"><label for="stockState">Statut</label><select id="stockState"><option>En stock</option><option>En ligne</option><option>Vendu</option></select></div>
+    </div>
+    <button onclick="addStock()">Ajouter au stock</button>
+  </div>
+  <div class="section-head"><h2>Articles enregistrés</h2></div>
+  <div class="card" style="overflow-x:auto"><table><thead><tr><th>Produit</th><th>Catégorie</th><th>Quantité</th><th>Statut</th><th></th></tr></thead><tbody id="stockRows"></tbody></table></div>
+</section>
+
+<section id="calculator" class="panel">
+  <div class="section-head"><h2>Calculateur de marge</h2></div>
+  <div class="card">
+    <p class="muted">Renseignez les montants pour obtenir une estimation des coûts directs.</p>
+    <div class="form-grid">
+      <div class="field"><label for="calcBuy">Prix d'achat (€)</label><input id="calcBuy" type="number" min="0" step=".01" value="10"></div>
+      <div class="field"><label for="calcSell">Prix de vente (€)</label><input id="calcSell" type="number" min="0" step=".01" value="25"></div>
+      <div class="field"><label for="calcFees">Frais de plateforme (€)</label><input id="calcFees" type="number" min="0" step=".01" value="2"></div>
+      <div class="field"><label for="calcOther">Autres coûts directs (€)</label><input id="calcOther" type="number" min="0" step=".01" value="1"></div>
+    </div>
+    <div class="card" style="background:#effaf4;margin-top:8px">
+      <div class="muted">Marge estimée</div><div class="metric" id="calcResult">12,00 €</div>
+      <div id="calcRate" class="small">48 % du prix de vente</div>
+    </div>
+    <p class="small">Cette estimation n'est pas un bénéfice comptable ou fiscal. Elle ne prend pas automatiquement en compte les taxes, cotisations, remboursements ni toutes les charges éventuelles.</p>
+  </div>
+</section>
+
+<section id="assistant" class="panel">
+  <div class="section-head"><h2>Assistant de description</h2><span class="pill">Mode démo sans API</span></div>
+  <div class="card">
+    <p class="muted">Préparez une base de description à relire et à compléter. Cette version utilise un modèle local : elle ne se connecte pas à une IA externe.</p>
+    <div class="field"><label for="aiProduct">Nom du produit</label><input id="aiProduct" placeholder="Ex. Veste en jean"></div>
+    <div class="form-grid">
+      <div class="field"><label for="aiBrand">Marque (facultatif)</label><input id="aiBrand" placeholder="Ex. Exemple"></div>
+      <div class="field"><label for="aiCondition">État</label><select id="aiCondition"><option>Neuf</option><option>Très bon état</option><option>Bon état</option><option>État correct</option></select></div>
+    </div>
+    <div class="field"><label for="aiDetails">Caractéristiques vérifiées</label><textarea id="aiDetails" placeholder="Taille, couleur, matière, dimensions, défauts éventuels…"></textarea></div>
+    <button onclick="generateDescription()">Préparer une description</button>
+    <div class="field" style="margin-top:14px"><label for="aiOutput">Proposition à relire</label><textarea id="aiOutput" placeholder="Votre texte apparaîtra ici…"></textarea></div>
+    <button class="secondary" onclick="copyDescription()">Copier le texte</button>
+    <div class="notice">Vérifiez chaque information avant publication. N'inventez jamais une marque, une taille, un état ou une caractéristique qui n'a pas été vérifiée.</div>
+  </div>
+</section>
+</main>
+<div id="appNotice" class="notice" hidden role="status" aria-live="polite"></div><footer>SellerFlow — Prototype de démonstration · Pas de paiement, pas de compte utilisateur · Les données saisies sont conservées uniquement dans le stockage local de ce navigateur.</footer>
+<script>
+const memoryStore={};
+const getData=(key)=>{try{const raw=window.localStorage.getItem("sellerflow_"+key);return raw?JSON.parse(raw):[]}catch(e){return memoryStore[key]||[]}};
+const saveData=(key,val)=>{memoryStore[key]=val;try{window.localStorage.setItem("sellerflow_"+key,JSON.stringify(val));}catch(e){showNotice("La sauvegarde permanente n'est pas disponible dans ce navigateur. Les données resteront disponibles jusqu'à la fermeture de cette page.");}};
+function showNotice(message){const n=document.getElementById("appNotice");if(n){n.textContent=message;n.hidden=false;}}
+let sales=getData("sales"), stock=getData("stock");
+function euro(n){return (Number(n)||0).toLocaleString("fr-FR",{style:"currency",currency:"EUR"})}
+function showTab(id){document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("active",p.id===id));document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.tab===id));window.scrollTo({top:0,behavior:"smooth"})}
+document.querySelectorAll("nav button").forEach(b=>b.addEventListener("click",()=>showTab(b.dataset.tab)));
+function render(){
+ const completed=sales.filter(s=>s.status==="Vendu");
+ const revenue=completed.reduce((a,s)=>a+s.sell,0), costs=completed.reduce((a,s)=>a+s.buy,0), fees=completed.reduce((a,s)=>a+s.fees,0);
+ document.getElementById("revenue").textContent=euro(revenue);document.getElementById("heroRevenue").textContent=euro(revenue);
+ document.getElementById("costs").textContent=euro(costs);document.getElementById("fees").textContent=euro(fees);document.getElementById("profit").textContent=euro(revenue-costs-fees);
+ document.getElementById("salesRows").innerHTML=sales.length?sales.map((s,i)=>`<tr><td>${esc(s.name)}</td><td>${esc(s.date)}</td><td>${esc(s.status)}</td><td>${euro(s.buy)}</td><td>${euro(s.sell)}</td><td>${euro(s.fees)}</td><td>${s.status==="Vendu"?euro(s.sell-s.buy-s.fees):"—"}</td><td><button class="danger" onclick="deleteSale(${i})">Supprimer</button></td></tr>`).join(""):'<tr><td colspan="8" class="empty">Aucune vente pour le moment.</td></tr>';
+ document.getElementById("stockRows").innerHTML=stock.length?stock.map((s,i)=>`<tr><td>${esc(s.name)}</td><td>${esc(s.category)}</td><td>${s.qty}</td><td>${esc(s.state)}</td><td><button class="danger" onclick="deleteStock(${i})">Supprimer</button></td></tr>`).join(""):'<tr><td colspan="5" class="empty">Aucun article enregistré.</td></tr>';
+}
+function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function val(id){return document.getElementById(id).value}
+function num(id){return Math.max(0,Number(val(id))||0)}
+function addSale(){const name=val("saleName").trim();if(!name){alert("Ajoutez le nom de l'article.");return}sales.push({name,date:val("saleDate")||new Date().toISOString().slice(0,10),buy:num("saleBuy"),sell:num("saleSell"),fees:num("saleFees"),status:val("saleStatus")});saveData("sales",sales);document.getElementById("saleName").value="";render()}
+function deleteSale(i){if(confirm("Supprimer cette ligne ?")){sales.splice(i,1);saveData("sales",sales);render()}}
+function addStock(){const name=val("stockName").trim();if(!name){alert("Ajoutez le nom du produit.");return}stock.push({name,category:val("stockCategory"),qty:Math.max(1,parseInt(val("stockQty"))||1),state:val("stockState")});saveData("stock",stock);document.getElementById("stockName").value="";document.getElementById("stockCategory").value="";render()}
+function deleteStock(i){if(confirm("Supprimer cet article ?")){stock.splice(i,1);saveData("stock",stock);render()}}
+function calculate(){let b=num("calcBuy"),s=num("calcSell"),f=num("calcFees"),o=num("calcOther"),m=s-b-f-o;document.getElementById("calcResult").textContent=euro(m);document.getElementById("calcRate").textContent=(s?((m/s)*100).toLocaleString("fr-FR",{maximumFractionDigits:1})+" % du prix de vente":"—")}
+["calcBuy","calcSell","calcFees","calcOther"].forEach(id=>document.getElementById(id).addEventListener("input",calculate));
+function generateDescription(){let p=val("aiProduct").trim();if(!p){alert("Indiquez le nom du produit.");return}let brand=val("aiBrand").trim(),condition=val("aiCondition"),details=val("aiDetails").trim();let text=`${p}${brand?" — "+brand:""}\n\nÉtat : ${condition}.\n${details?details+"\n":""}\nN'hésitez pas à me contacter pour toute question complémentaire.`;document.getElementById("aiOutput").value=text}
+async function copyDescription(){let t=val("aiOutput");if(!t){alert("Aucun texte à copier.");return}try{await navigator.clipboard.writeText(t);alert("Texte copié.")}catch(e){alert("La copie automatique n'est pas disponible dans ce navigateur. Sélectionnez le texte pour le copier.")}}
+function exportSales(){let rows=[["Article","Date","Statut","Prix achat","Prix vente","Frais"],...sales.map(s=>[s.name,s.date,s.status,s.buy,s.sell,s.fees])];let csv=rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(";")).join("\n");let a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8"}));a.download="sellerflow-ventes.csv";a.click();URL.revokeObjectURL(a.href)}
+document.getElementById("saleDate").value=new Date().toISOString().slice(0,10);render();calculate();
+</script>
+</body>
+</html>
